@@ -1,0 +1,104 @@
+<ng-container *ngIf="isLoading">
+  <ngx-spinner
+    bdColor="white"
+    template="<img  class='img-fluid w-100' src='assets/shopping-loader.gif' />"
+  >
+  </ngx-spinner>
+  Loading...
+</ng-container>
+<div class="container overflow-hidden">
+  <div class="w-100 d-flex justify-content-center">
+    <div class="input-group w-50 me-2 mt-5 mb-2 ms-5 col-12">
+      <label
+        class="input-group-text me-2 rounded"
+        for="categoryDropdown"
+        style="background-color: rgb(0, 0, 0); color: white"
+        >Status</label
+      >
+      <select
+        class="form-select rounded"
+        id="categoryDropdown"
+        [(ngModel)]="orderStatus"
+        (ngModelChange)="searchOrderByStatus()"
+      >
+        <option value="all" selected>All</option>
+        <option value="delivered">delivered</option>
+        <option value="shipping">shipping</option>
+        <option value="pending">pending</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row table-responsive-md table-responsive-sm m-5">
+    <div class="d-flex justify-content-center row">
+      <table class="table table-hover border w-100 border-black">
+        <thead>
+          <tr class="text-center">
+            <th scope="col" class=" ">Retailer Name</th>
+            <th scope="col" class=" ">Retailer Email</th>
+            <th scope="col" class=" ">Title</th>
+            <th scope="col" class=" ">Status</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col" class="">Image</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let ord of sel">
+            <td class="mt-5">
+              {{ ord.name }}
+            </td>
+            <td class="mt-5">
+              {{ ord.email }}
+            </td>
+            <td class="fw-bold" style="font-size: 12px">
+              {{ ord.title.toString().split(" ").slice(0, 2).join(" ") }}
+            </td>
+            <td class="">
+              <div
+                [ngStyle]="
+                  ord.status == 'delivered'
+                    ? { 'background-color': 'green' }
+                    : { 'background-color': 'blue' } && ord.status == 'shipping'
+                    ? { 'background-color': 'orange' }
+                    : { 'background-color': 'blue' }
+                "
+                style="height: 40px"
+                class="rounded-3 text-light d-flex justify-content-center align-items-center"
+              >
+                <div>{{ ord.status }}</div>
+              </div>
+            </td>
+            <td class="mt-5">{{ ord.quantity }}</td>
+            <td class="mt-5">{{ ord.price }}</td>
+            <td>
+              <img
+                src="{{ ord.img }}"
+                class="rounded-circle"
+                style="width: 40px; height: 40px"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="pagination m-5 justify-content-center">
+    <button
+      class="btn border"
+      (click)="onPageChange(currentPage - 1)"
+      [disabled]="currentPage == 1"
+    >
+      <mat-icon class="mt-2 ms-2">arrow_back_ios</mat-icon>
+    </button>
+    <span class="m-3 p-2">{{ currentPage }}</span>
+    <span class="m-3 p-2">{{ currentPage + 1 }}</span>
+    <button
+      class="btn border"
+      (click)="onPageChange(currentPage + 1)"
+      [disabled]="currentPage == totalPages"
+    >
+      <mat-icon class="mt-2 ms-2">arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="body row w-50 d-flex justify-content-center mx-auto">
+  <div class="container p-5 col-sm-8  border-black mt-5  " >
+    <!-- <div class="card"> -->
+      <div class="card-body ">
+        <div class = ' w-50  w-100 d-flex justify-content-center'>
+        <p class="text-center mb-4  "> 
+          <img class="imgLogo w-75 " src="assets/blcklogo-04.png" alt="logo" />
+        </p>
+      </div>
+        <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="form3Example3" name="email" formControlName="email"
+            [ngClass]="{'is-invalid':(email?.touched || email?.dirty)&&email?.invalid}" required email
+            class="form-control" />
+          <span class="invalid-feedback">
+            <span *ngIf="email?.errors?.['required']">Email is required</span>
+            <span *ngIf="email?.errors?.['email']">Email must be contain <i class="fa-solid fa-at"></i> </span>
+          </span>
+        </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type={{type}} id="form3Example3" name="password" minlength="5" formControlName="password"
+            [ngClass]="{'is-invalid':(password?.touched || password?.dirty)&&password?.invalid}" required 
+            class="form-control" />
+            <span class="invalid-feedback">
+              <span *ngIf="password?.errors?.['required']">password is required and must be 5 characters </span>
+            </span>
+            <button type="button" class="btn  w-100   mt-2 d-flex " >
+              <mat-icon class="  text-center fs-2 w-100 h-100 " (click)="show()">remove_red_eye</mat-icon>
+            </button>
+        </div>
+          <button type="submit" class="btn btn-primary  form-control  mt-2" [disabled]="isLoggedIn">Login</button>
+        </form>
+      </div>
+    <!-- </div> -->
+  </div>
+  </div>
+  <!-- <button (click)="logout()" [disabled]="!isLoggedIn">Logout</button> -->
