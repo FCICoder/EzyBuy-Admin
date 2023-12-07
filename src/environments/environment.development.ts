@@ -1,4 +1,4 @@
 export const environment = {
     production:true,
-    BaseApiURL: 'http://localhost:3333'
+    BaseApiURL: 'https://nodee-f764.onrender.com'
 };
